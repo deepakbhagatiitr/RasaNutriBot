@@ -19,7 +19,7 @@ stories:
   - story: User asks for a meal suggestion
     steps:
       - intent: meal_suggestion
-      - action: utter_meal_suggestion
+      - action: action_recommend_meal
 
   - story: Fallback response
     steps:

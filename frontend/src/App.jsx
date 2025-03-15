@@ -16,7 +16,7 @@ const ChatDashboard = () => {
       setMessages((prevMessages) => [...prevMessages, { text: message, user: true }]);
 
       try {
-        const response = await axios.post('https://fb6b-2409-40d0-e4-af44-f9f8-e9fd-8d7-c218.ngrok-free.app/webhook', {
+        const response = await axios.post('http://localhost:5000/webhook', {
           queryResult: {
             intent: {
               displayName: message
@@ -49,7 +49,7 @@ const ChatDashboard = () => {
     <div className='flex justify-center w-full h-screen py-5 bg-gray-50'>
       <div className="flex flex-col w-11/12 h-full overflow-hidden bg-white rounded-lg md:w-8/12 lg:w-6/12">
         <header className="flex items-center justify-between p-4 text-black">
-          <div className="text-xl font-semibold">MasterBot</div>
+          <div className="text-xl font-semibold">NutriBot</div>
           <div className="flex items-center justify-center w-10 h-10">
             <MdFace className="w-5/6 text-2xl h-5/6" />
           </div>

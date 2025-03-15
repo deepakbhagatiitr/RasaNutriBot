@@ -20,8 +20,9 @@ responses:
 
   utter_faq:
     - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions."
+
   utter_meal_suggestion:
-    - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions."
+    - text: "Fetching some meal recommendations for you..."
 
 slots:
   user_preference:
@@ -29,3 +30,6 @@ slots:
     influence_conversation: true
     mappings:
       - type: from_text
+
+actions:
+  - action_recommend_meal

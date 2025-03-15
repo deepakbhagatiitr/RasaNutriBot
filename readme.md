@@ -1,7 +1,3 @@
-Here's a well-structured and **professional README** for your **Rasa NutriBot** project. It includes a clear introduction, installation steps, usage instructions, and notes for better readability.
-
----
-
 # Rasa NutriBot  
 
 Rasa NutriBot is an AI-powered nutrition assistant that helps users with dietary recommendations, calorie tracking, and nutrition-related queries. The project consists of three main components:  

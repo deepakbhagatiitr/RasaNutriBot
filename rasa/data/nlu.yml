@@ -1,34 +1,88 @@
 nlu:
-- intent: greet
-  examples: |
-    - Hi
-    - Hello
-    - Hey there
-    - Good morning
+  - intent: greet
+    examples: |
+      - Hi
+      - Hello
+      - Hey there
+      - Good morning
+      - Good evening
+      - What's up?
+      - Hi there!
+      - Hey!
+      - Yo!
+      - How's it going?
 
-- intent: goodbye
-  examples: |
-    - Bye
-    - See you later
-    - Goodbye
+  - intent: goodbye
+    examples: |
+      - Bye
+      - See you later
+      - Goodbye
+      - Take care
+      - Catch you later
+      - See you soon
+      - Bye for now
+      - Have a nice day
+      - Talk to you later
+      - I'm signing off
 
-- intent: meal_suggestion
-  examples: |
-    - Suggest a meal
-    - What should I eat for dinner?
-    - Give me a high-protein meal
-    - Recommend a healthy meal
-    - What is a good low-carb meal?
+  - intent: meal_suggestion
+    examples: |
+      - Suggest a meal
+      - What should I eat for dinner?
+      - Give me a high-protein meal
+      - Recommend a healthy meal
+      - What is a good low-carb meal?
+      - Can you suggest something for lunch?
+      - I need a quick and healthy meal
+      - What are some good meal options?
+      - Suggest a balanced meal for me
+      - What should I eat after a workout?
+      - Recommend a meal that’s rich in fiber
+      - Can you suggest a meal for weight loss?
+      - I need a meal that is high in iron
+      - What should I eat before going to the gym?
+      - I need something easy to cook for dinner
+      - Tell me a meal that is good for digestion
+      - What’s a good meal for breakfast?
 
-- intent: diet_preference
-  examples: |
-    - I am vegan
-    - I prefer vegetarian meals
-    - I am on a keto diet
-    - Can you suggest a meal for my diet?
+  - intent: diet_preference
+    examples: |
+      - I am vegan
+      - I prefer vegetarian meals
+      - I am on a keto diet
+      - Can you suggest a meal for my diet?
+      - I don't eat meat
+      - I follow a gluten-free diet
+      - I need a dairy-free meal option
+      - My diet is paleo
+      - I avoid sugar, what can I eat?
+      - I am on an intermittent fasting schedule, what should I eat?
+      - Suggest a meal for someone with diabetes
+      - I only eat organic food, suggest something
+      - I need a high-calorie meal, can you suggest one?
+      - I want a meal with low cholesterol
+      - I eat only whole foods, what can I have?
+      - Can you suggest a meal with healthy fats?
 
-- intent: faq
-  examples: |
-    - What is a balanced diet?
-    - How many calories should I eat daily?
-    - What foods are high in protein?
+  - intent: faq
+    examples: |
+      - What is a balanced diet?
+      - How many calories should I eat daily?
+      - What foods are high in protein?
+      - What is the best diet for weight loss?
+      - What are the benefits of eating fiber?
+      - How much water should I drink per day?
+      - What is the difference between carbs and fats?
+      - Which foods help with muscle gain?
+      - What is the best source of plant-based protein?
+      - What foods should I avoid for better digestion?
+      - What vitamins are essential for good health?
+      - Should I take protein supplements?
+      - How much protein do I need daily?
+      - What is the best time to eat fruits?
+      - Is coffee good for health?
+      - Can you suggest some foods rich in omega-3?
+      - What are some iron-rich foods?
+      - How can I reduce sugar intake in my diet?
+      - Is eating late at night bad for health?
+      - How many meals should I eat in a day?
