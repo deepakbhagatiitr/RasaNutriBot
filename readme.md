@@ -23,12 +23,11 @@ Rasa NutriBot is an AI-powered nutrition assistant that helps users with dietary
 ## 📌 Project Structure  
 ```
 rasa-nutribot/
-│── frontend/         # Frontend (React/HTML)
+│── frontend/         # Frontend (React)
 │── backend/          # Flask API Backend
 │── rasa/             # Rasa Chatbot
 │── README.md         # Project Documentation
 │── requirements.txt  # Python Dependencies
-│── package.json      # Frontend Dependencies
 ```
 
 ---
@@ -95,14 +94,10 @@ The frontend will be available at the URL provided by the development server.
 
 ---
 
-## 🤝 Contributing  
-Contributions are welcome! Feel free to submit issues and pull requests.  
-
----
-
 ## 📜 License  
 This project is licensed under the **MIT License**.  
 
 ---
 
-This README follows a clean **Markdown format** that works perfectly on GitHub and other documentation platforms. 🎯 Let me know if you need any modifications! 🚀
+Happy coding! 🚀
+
