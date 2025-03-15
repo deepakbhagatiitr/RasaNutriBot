@@ -1,0 +1,34 @@
+nlu:
+- intent: greet
+  examples: |
+    - Hi
+    - Hello
+    - Hey there
+    - Good morning
+
+- intent: goodbye
+  examples: |
+    - Bye
+    - See you later
+    - Goodbye
+
+- intent: meal_suggestion
+  examples: |
+    - Suggest a meal
+    - What should I eat for dinner?
+    - Give me a high-protein meal
+    - Recommend a healthy meal
+    - What is a good low-carb meal?
+
+- intent: diet_preference
+  examples: |
+    - I am vegan
+    - I prefer vegetarian meals
+    - I am on a keto diet
+    - Can you suggest a meal for my diet?
+
+- intent: faq
+  examples: |
+    - What is a balanced diet?
+    - How many calories should I eat daily?
+    - What foods are high in protein?

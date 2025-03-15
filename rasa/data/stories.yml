@@ -1,0 +1,27 @@
+version: "3.1"
+
+stories:
+  - story: User greets
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - story: User says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - story: User asks an FAQ
+    steps:
+      - intent: faq
+      - action: utter_faq
+
+  - story: User asks for a meal suggestion
+    steps:
+      - intent: meal_suggestion
+      - action: utter_meal_suggestion
+
+  - story: Fallback response
+    steps:
+      - intent: fallback
+      - action: utter_default

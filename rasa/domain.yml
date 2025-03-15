@@ -1,0 +1,31 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - meal_suggestion
+  - diet_preference
+  - faq
+  - fallback
+
+responses:
+  utter_greet:
+    - text: "Hello! How can I assist you with your diet today?"
+
+  utter_goodbye:
+    - text: "Goodbye! Stay healthy!"
+
+  utter_default:
+    - text: "I'm here to help with nutrition and diet. Ask me about food and health!"
+
+  utter_faq:
+    - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions."
+  utter_meal_suggestion:
+    - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions."
+
+slots:
+  user_preference:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
