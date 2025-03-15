@@ -1,0 +1,92 @@
+# Rasa NutriBot
+
+Rasa NutriBot is an AI-powered chatbot designed to provide personalized nutrition guidance. The project consists of three main components: a **frontend**, a **Flask-based backend**, and a **Rasa chatbot**.
+
+---
+
+## Frontend
+The frontend is built using modern web technologies. To set it up, follow these steps:
+
+1. Navigate to the `frontend` directory:
+   ```sh
+   cd frontend
+   ```
+
+2. Install the required dependencies:
+   ```sh
+   npm install
+   ```
+
+3. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+The frontend will be available at the URL provided by the development server.
+
+---
+
+## Flask Backend
+The backend is implemented in **Flask** and serves as the bridge between the frontend and Rasa chatbot. To set it up, follow these steps:
+
+1. Navigate to the `backend` directory:
+   ```sh
+   cd backend
+   ```
+
+2. Install the required Python dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+3. Run the Flask server:
+   ```sh
+   python app.py
+   ```
+
+The backend will be accessible at the specified localhost address.
+
+---
+
+## Rasa Chatbot
+The Rasa chatbot handles conversational AI for nutrition recommendations. To set it up, follow these steps:
+
+1. Navigate to the `rasa` directory:
+   ```sh
+   cd rasa
+   ```
+
+2. Train the Rasa model:
+   ```sh
+   rasa train
+   ```
+
+3. Run the Rasa server:
+   ```sh
+   rasa run
+   ```
+
+4. Run the Rasa actions server:
+   ```sh
+   rasa run actions
+   ```
+
+---
+
+## Notes
+- Ensure you have the required versions of **Node.js, npm, Python, and Flask** installed on your system.
+- For Rasa, make sure the necessary environment is set up, including the `rasa_env` virtual environment if applicable.
+- Refer to the respective directories for additional configuration files and documentation.
+
+---
+
+### Contributing
+We welcome contributions! Feel free to submit issues or pull requests to improve Rasa NutriBot.
+
+### License
+This project is licensed under [MIT License](LICENSE).
+
+---
+
+Happy coding! 🚀
+
