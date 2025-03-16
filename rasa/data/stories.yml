@@ -21,6 +21,12 @@ stories:
       - intent: meal_suggestion
       - action: action_recommend_meal
 
+  - story: User provides diet preference
+    steps:
+      - intent: diet_preference
+      - action: action_store_user_preference
+
+
   - story: Fallback response
     steps:
       - intent: fallback

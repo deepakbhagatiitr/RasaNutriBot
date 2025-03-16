@@ -24,12 +24,17 @@ responses:
   utter_meal_suggestion:
     - text: "Fetching some meal recommendations for you..."
 
+  utter_confirm_diet_preference:
+    - text: "Got it! You prefer {user_preference}. I'll suggest meals accordingly."
 slots:
   user_preference:
     type: text
     influence_conversation: true
     mappings:
-      - type: from_text
+      - type: from_intent
+        intent: diet_preference # ✅ Stores only when user gives a diet preference
+        value: "{text}" # ✅ Stores the user's diet preference
 
 actions:
+  - action_store_user_preference
   - action_recommend_meal

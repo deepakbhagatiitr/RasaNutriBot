@@ -31,7 +31,6 @@ nlu:
       - What should I eat for dinner?
       - Give me a high-protein meal
       - Recommend a healthy meal
-      - What is a good low-carb meal?
       - Can you suggest something for lunch?
       - I need a quick and healthy meal
       - What are some good meal options?
@@ -44,25 +43,37 @@ nlu:
       - I need something easy to cook for dinner
       - Tell me a meal that is good for digestion
       - What’s a good meal for breakfast?
+      - Give me a high-protein meal
+      - What is a good low-carb meal?
+      - Can you suggest something for lunch?
+      - Suggest me a protein diet
+      - What is the best meal for a vegan diet?
+      - I need a keto-friendly meal
+      - What are some good meal options for a dairy-free diet?
+      - Tell me a meal that fits my diet plan
 
   - intent: diet_preference
     examples: |
       - I am vegan
+      - I follow a vegan diet
       - I prefer vegetarian meals
-      - I am on a keto diet
-      - Can you suggest a meal for my diet?
       - I don't eat meat
-      - I follow a gluten-free diet
-      - I need a dairy-free meal option
+      - I am on a keto diet
       - My diet is paleo
+      - I only eat gluten-free food
+      - I follow a dairy-free diet
+      - Can you suggest meals for a vegetarian?
       - I avoid sugar, what can I eat?
-      - I am on an intermittent fasting schedule, what should I eat?
-      - Suggest a meal for someone with diabetes
-      - I only eat organic food, suggest something
-      - I need a high-calorie meal, can you suggest one?
-      - I want a meal with low cholesterol
-      - I eat only whole foods, what can I have?
-      - Can you suggest a meal with healthy fats?
+      - I am on a low-carb diet
+      - I want a high-protein meal
+      - My diet is plant-based
+      - I eat only whole foods
+      - I am on a weight-loss diet
+      - I follow intermittent fasting
+      - I need a meal for a diabetic diet
+      - Can you suggest meals with healthy fats?
+      - I need a meal with low cholesterol
+      - I eat only organic food, suggest something
 
   - intent: faq
     examples: |

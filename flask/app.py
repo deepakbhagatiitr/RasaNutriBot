@@ -131,26 +131,30 @@ def webhook():
     if not user_query:
         return jsonify({"fulfillmentText": "Invalid request. No user message received."})
 
-    # ✅ Step 1: Get response from Rasa
+    # ✅ Step 1: Get Rasa response
     rasa_response = get_rasa_response(user_query)
-    
-    # ✅ Step 2: Check if user asks for a meal/diet-related query
-    if any(keyword in user_query.lower() for keyword in ["meal", "food", "diet", "nutrition"]):
-        meal_suggestions = get_meal_suggestions(user_query)
 
-        # ✅ Step 3: Format response properly
-        meal_text = "\n".join(meal_suggestions)
+    # ✅ Step 2: Check if Rasa already provided meal recommendations
+    if "Here are some meal options:" in rasa_response:
+        return jsonify({"fulfillmentText": rasa_response})  # Avoid duplicate calls
 
-        # ✅ Ensure "Here are some healthy meal options:" appears only once
-        if "Here are some healthy meal options:" in rasa_response:
-            rasa_response = rasa_response.replace("Here are some healthy meal options:", "").strip()
+    # ✅ Step 3: Check if the user asked about meals, food, or diet
+    # if any(keyword in user_query.lower() for keyword in ["meal", "food", "diet", "nutrition"]):
+    #     meal_suggestions = get_meal_suggestions(user_query)
+    #     meal_text = "\n".join(meal_suggestions)
 
-        if rasa_response.strip():
-            rasa_response = f"{rasa_response}\nHere are app healthy meal options:\n{meal_text}"
-        else:
-            rasa_response = f"Here are app healthy meal options:\n{meal_text}"
+    #     # ✅ Ensure "Here are some healthy meal options:" appears only once
+    #     if "Here are some healthy meal options:" in rasa_response:
+    #         rasa_response = rasa_response.replace("Here are some healthy meal options:", "").strip()
+
+    #     # ✅ Format response to avoid duplication
+    #     if rasa_response.strip():
+    #         rasa_response += f"\nHere are some healthy meal options:\n{meal_text}"
+    #     else:
+    #         rasa_response = f"Here are some healthy meal options:\n{meal_text}"
 
     return jsonify({"fulfillmentText": rasa_response})
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
