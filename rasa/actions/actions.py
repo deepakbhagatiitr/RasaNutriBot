@@ -60,11 +60,10 @@ def extract_food_keywords(text):
 
     # ✅ Handle **weight-related queries** properly
     text_lower = text.lower()
-    if "weight loss" in text_lower:
-        keywords = ["low calorie"]  # Overwrite with "low calorie"
-    elif "weight gain" in text_lower:
-        keywords = ["high calorie"]  # Overwrite with "high calorie"
-
+    if "weight loss" in text_lower or "weight-loss" in text_lower:
+     keywords = ["low calorie"]  # Overwrite with "low calorie"
+    elif "weight gain" in text_lower or "weight-gain" in text_lower:
+     keywords = ["high calorie"]  # Overwrite with "high calorie"
     return " ".join(set(keywords)) if keywords else "healthy meal"  # Default fallback
 
 
@@ -155,7 +154,7 @@ class ActionRecommendMeal(Action):
 
         print(f"🔹 Final Meal Response: {meal_text}")
 
-        dispatcher.utter_message(f"Here are some meal options based on your preference ({user_preference}):\n{meal_text}")
+        dispatcher.utter_message(f"Here are some meal options:\n{meal_text}")
         return []
 
 class ActionHandleFeedback(Action):

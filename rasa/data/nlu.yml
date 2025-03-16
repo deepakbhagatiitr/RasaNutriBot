@@ -29,6 +29,7 @@ nlu:
     examples: |
       - Suggest a meal
       - What should I eat for dinner?
+      - Which foods are high in protein?
       - Give me a high-protein meal
       - Recommend a healthy meal
       - Can you suggest something for lunch?
