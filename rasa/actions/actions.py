@@ -127,8 +127,20 @@ class ActionRecommendMeal(Action):
             print(f"⚠️ API Search Error: {e}")
             dispatcher.utter_message("Sorry, I couldn't fetch meal suggestions at the moment.")
             return []
+# ✅ Step 2: Extract Unique Meal Names (No Duplicates)
+        # seen_meals = set()  # Track unique meals
+        # meal_suggestions = []
 
-        # ✅ Step 2: Extract top meal names
+        # for item in search_data.get("common", []):
+        #     meal_name = item["food_name"].title()
+            
+        #     if meal_name not in seen_meals:  # ✅ Avoid duplicate meals
+        #         seen_meals.add(meal_name)
+        #         meal_suggestions.append(meal_name)
+
+        # # ✅ Limit to 5 unique meals
+        # meals = meal_suggestions[:5]
+
         meals = list(set([item["food_name"].title() for item in search_data.get("common", [])]))[:5]
 
         if not meals:
@@ -144,13 +156,38 @@ class ActionRecommendMeal(Action):
             print(f"⚠️ API Nutrition Error: {e}")
             dispatcher.utter_message("Sorry, I couldn't fetch nutrition details.")
             return []
+# ✅ Step 4: Format Meal Recommendations (Ensure Unique Meals)
+       # ✅ Step 4: Format Meal Recommendations (Ensure Unique & Relevant Meals)
+
+        excluded_items = {
+        "protein", "carbs", "fiber", "fats", "iron", "omega-3", "sodium", "sugar",  # Generic nutrients
+        # "milk", "skim milk", "fat free milk", "whole milk", "yogurt", "juice", "beer", "alcohol", "soda",  # Beverages
+        }
+
+        seen_meals = set()  # Track unique meal names
+        meal_suggestions = []
+
+        for food in nutrition_data.get("foods", []):
+            meal_name = food["food_name"].title()
+            
+            # ✅ Skip if it's just a generic nutrient
+            if meal_name.lower() in excluded_items:
+                continue  
+
+            meal_entry = f"{meal_name} - {food.get('nf_calories', 'Unknown')} calories"
+            
+            if meal_name not in seen_meals:  # ✅ Avoid duplicates
+                seen_meals.add(meal_name)
+                meal_suggestions.append(meal_entry)
+
+        meal_text = "\n".join(meal_suggestions)  # ✅ Unique, relevant meals only
 
         # ✅ Step 4: Format Meal Recommendations
-        meal_suggestions = [
-            f"{food['food_name'].title()} - {food.get('nf_calories', 'Unknown')} calories, "
-            for food in nutrition_data.get("foods", [])
-        ]
-        meal_text = "\n".join(meal_suggestions)
+        # meal_suggestions = [
+        #     f"{food['food_name'].title()} - {food.get('nf_calories', 'Unknown')} calories, "
+        #     for food in nutrition_data.get("foods", [])
+        # ]
+        # meal_text = "\n".join(meal_suggestions)
 
         print(f"🔹 Final Meal Response: {meal_text}")
 
