@@ -19,7 +19,11 @@ HEADERS = {
 }
 
 # ✅ List of valid diet preferences
-VALID_DIET_PREFERENCES = {"vegan", "vegetarian", "keto", "gluten-free", "paleo", "dairy-free", "low-carb", "high-protein"}
+VALID_DIET_PREFERENCES = {
+    "vegan", "vegetarian", "keto", "gluten-free", "paleo",
+    "dairy-free", "low-carb", "high-protein", "weight-loss"
+}
+
 VALID_NUTRIENTS = {"protein", "carbs", "fiber", "fats", "iron", "omega-3"}
 
 # ✅ Extract diet preference (ONLY if user explicitly mentions it)
@@ -31,17 +35,38 @@ def extract_diet_preference(text):
     return None
 
 # ✅ Extract relevant food keywords (Ensures nutrients like "protein" are not lost)
-def extract_food_keywords(text):
-    doc = nlp(text.lower())
-    keywords = [
-        token.text for token in doc if token.pos_ in ["NOUN", "ADJ"]
-        and token.text not in ["suggest", "recommend", "give", "want", "need", "meal", "food", "diet"]
-    ]
-    for token in doc:
-        if token.text in VALID_NUTRIENTS:
-            keywords.append(token.text)  # Ensures "protein", "fiber" etc. are included
+# def extract_food_keywords(text):
+#     doc = nlp(text.lower())
+#     keywords = [
+#         token.text for token in doc if token.pos_ in ["NOUN", "ADJ"]
+#         and token.text not in ["suggest", "recommend", "give", "want", "need", "meal", "food", "diet"]
+#     ]
+#     for token in doc:
+#         if token.text in VALID_NUTRIENTS:
+#             keywords.append(token.text)  # Ensures "protein", "fiber" etc. are included
 
-    return " ".join(keywords) if keywords else "balanced meal"  # Default fallback
+#     return " ".join(keywords) if keywords else "balanced meal"  # Default fallback
+
+def extract_food_keywords(text):
+    """Extract relevant food-related keywords using NLP with better filtering."""
+    doc = nlp(text.lower())  # Process input with SpaCy NLP model
+    
+    # ✅ Define stop words to ignore
+    stop_words = {"suggest", "recommend", "give", "want", "need", "meal", "food", "diet", 
+                  "some", "for", "me", "to", "a", "the", "that", "which"}
+
+    # ✅ Extract meaningful food-related words (NOUNS & ADJECTIVES)
+    keywords = [token.text for token in doc if token.pos_ in ["NOUN", "ADJ"] and token.text not in stop_words]
+
+    # ✅ Handle **weight-related queries** properly
+    text_lower = text.lower()
+    if "weight loss" in text_lower:
+        keywords = ["low calorie"]  # Overwrite with "low calorie"
+    elif "weight gain" in text_lower:
+        keywords = ["high calorie"]  # Overwrite with "high calorie"
+
+    return " ".join(set(keywords)) if keywords else "healthy meal"  # Default fallback
+
 
 # ✅ Store User Diet Preference (ONLY updates slot when intent is 'diet_preference')
 class ActionStoreUserPreference(Action):
@@ -131,4 +156,20 @@ class ActionRecommendMeal(Action):
         print(f"🔹 Final Meal Response: {meal_text}")
 
         dispatcher.utter_message(f"Here are some meal options based on your preference ({user_preference}):\n{meal_text}")
+        return []
+
+class ActionHandleFeedback(Action):
+    def name(self):
+        return "action_handle_feedback"
+
+    def run(self, dispatcher, tracker, domain):
+        feedback = tracker.get_slot("feedback_type")
+
+        if feedback == "positive":
+            dispatcher.utter_message("I'm glad you liked it! Let me know if you need more recommendations.")
+        elif feedback == "negative":
+            dispatcher.utter_message("I'm sorry you didn't enjoy it. Would you like another suggestion?")
+        else:
+            dispatcher.utter_message("Thanks for your feedback!")
+
         return []

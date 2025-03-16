@@ -97,3 +97,23 @@ nlu:
       - How can I reduce sugar intake in my diet?
       - Is eating late at night bad for health?
       - How many meals should I eat in a day?
+
+  - intent: give_feedback
+    examples: |
+      - I liked it [positive](feedback_type)
+      - I loved the meal [positive](feedback_type)
+      - It was good [positive](feedback_type)
+      - That was delicious [positive](feedback_type)
+      - That meal was perfect [positive](feedback_type)
+      - I enjoyed it a lot [positive](feedback_type)
+      - It was okay, but I’d like to try another one [positive](feedback_type)
+
+      - I didn't like it [negative](feedback_type)
+      - The meal was bad [negative](feedback_type)
+      - I want a different meal [negative](feedback_type)
+      - It wasn't good [negative](feedback_type)
+      - Not my favorite meal [negative](feedback_type)
+      - Can you suggest something else? [negative](feedback_type)
+      - I didn’t enjoy that [negative](feedback_type)
+      - The taste wasn’t great [negative](feedback_type)
+      - I prefer something else [negative](feedback_type)

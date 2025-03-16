@@ -1,7 +1,16 @@
 version: "3.1"
 
 rules:
-- rule: Handle unknown questions
-  steps:
-  - intent: fallback
-  - action: utter_default
+  - rule: Handle unknown questions
+    steps:
+      - intent: fallback
+      - action: utter_default
+  - rule: Handle Positive Feedback
+    steps:
+      - intent: give_feedback
+      - action: action_handle_feedback
+
+  - rule: Handle Negative Feedback
+    steps:
+      - intent: give_feedback
+      - action: action_handle_feedback

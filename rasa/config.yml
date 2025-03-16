@@ -10,34 +10,36 @@ assistant_id: 20250314-172842-mint-kudos
 language: en
 
 pipeline:
-  - name: WhitespaceTokenizer    # Tokenizes words by spaces
-  - name: RegexFeaturizer        # Helps with regex-based entity extraction
-  - name: LexicalSyntacticFeaturizer  # Extracts syntactic features from text
-  - name: CountVectorsFeaturizer  # Converts text into vector representations
+  - name: WhitespaceTokenizer # Tokenizes words by spaces
+  - name: RegexFeaturizer # Helps with regex-based entity extraction
+  - name: LexicalSyntacticFeaturizer # Extracts syntactic features from text
+  - name: CountVectorsFeaturizer # Converts text into vector representations
   - name: CountVectorsFeaturizer
     analyzer: char_wb
     min_ngram: 1
     max_ngram: 4
-  - name: DIETClassifier         # Trains intent classification and entity recognition
+  - name: DIETClassifier # Trains intent classification and entity recognition
     epochs: 100
     constrain_similarities: true
-  - name: EntitySynonymMapper     # Maps synonyms for better entity recognition
-  - name: ResponseSelector        # Helps with FAQ-style queries
+  - name: EntitySynonymMapper # Maps synonyms for better entity recognition
+  - name: ResponseSelector # Helps with FAQ-style queries
     epochs: 100
     constrain_similarities: true
-  - name: FallbackClassifier      # Handles unknown queries
+  - name: FallbackClassifier # Handles unknown queries
     threshold: 0.3
     ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
 policies:
-  - name: MemoizationPolicy       # Memorizes conversations
-  - name: RulePolicy              # Defines rule-based conversations
-  - name: UnexpecTEDIntentPolicy  # Helps with unexpected intents
+  - name: MemoizationPolicy # Memorizes conversations
+  - name: RulePolicy
+    core_fallback_threshold: 0.3 # If intent confidence < 0.3, trigger fallback
+    core_fallback_action_name: "utter_default" # Defines rule-based conversations
+  - name: UnexpecTEDIntentPolicy # Helps with unexpected intents
     max_history: 5
     epochs: 100
-  - name: TEDPolicy               # Trains dialogue management
+  - name: TEDPolicy # Trains dialogue management
     max_history: 5
     epochs: 100
     constrain_similarities: true

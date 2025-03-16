@@ -21,11 +21,24 @@ stories:
       - intent: meal_suggestion
       - action: action_recommend_meal
 
+  - story: User gives positive feedback
+    steps:
+      - intent: give_feedback
+        entities:
+          - feedback_type: "positive"
+      - action: action_handle_feedback
+
+  - story: User gives negative feedback
+    steps:
+      - intent: give_feedback
+        entities:
+          - feedback_type: "negative"
+      - action: action_handle_feedback
+
   - story: User provides diet preference
     steps:
       - intent: diet_preference
       - action: action_store_user_preference
-
 
   - story: Fallback response
     steps:

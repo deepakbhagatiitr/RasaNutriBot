@@ -7,6 +7,26 @@ intents:
   - diet_preference
   - faq
   - fallback
+  - give_feedback
+
+entities:
+  - feedback_type # ✅ Added entity to capture positive/negative feedback
+
+slots:
+  user_preference:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_intent
+        intent: diet_preference
+        value: "{text}" # ✅ Stores the user's diet preference
+
+  feedback_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: feedback_type # ✅ Stores positive or negative feedback
 
 responses:
   utter_greet:
@@ -21,20 +41,7 @@ responses:
   utter_faq:
     - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions."
 
-  utter_meal_suggestion:
-    - text: "Fetching some meal recommendations for you..."
-
-  utter_confirm_diet_preference:
-    - text: "Got it! You prefer {user_preference}. I'll suggest meals accordingly."
-slots:
-  user_preference:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_intent
-        intent: diet_preference # ✅ Stores only when user gives a diet preference
-        value: "{text}" # ✅ Stores the user's diet preference
-
 actions:
   - action_store_user_preference
   - action_recommend_meal
+  - action_handle_feedback
