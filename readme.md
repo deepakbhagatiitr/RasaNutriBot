@@ -1,36 +1,37 @@
-# Rasa NutriBot  
+# **Rasa NutriBot**  
 
-Rasa NutriBot is an AI-powered nutrition assistant that helps users with dietary recommendations, calorie tracking, and nutrition-related queries. The project consists of three main components:  
+**Rasa NutriBot** is an AI-powered **intelligent nutrition assistant** that provides personalized dietary recommendations and meal suggestions based on user preferences. The chatbot leverages **Natural Language Processing (NLP)** and integrates with the **Nutritionix API** to offer **scientifically-backed nutrition guidance** in real time.  
 
-- **Frontend** – Built with modern web technologies  
-- **Flask Backend** – Manages API requests and integrates with the nutrition database  
-- **Rasa Chatbot** – Handles conversational AI for user interactions  
+This project is built using **Rasa for conversational AI**, **Flask as the backend**, and a **React-based frontend**, ensuring a smooth and interactive user experience.
 
 ---
 
-## 🚀 Features  
-✔ AI-driven chatbot for nutrition guidance  
-✔ Food database integration for calorie tracking  
-✔ Interactive web interface  
-✔ Scalable and modular architecture  
+## **🚀 Features**  
+
+✔ **AI-Driven Conversational Chatbot** – Understands and responds to nutrition-related queries.  
+✔ **Personalized Meal Recommendations** – Suggests meals based on diet preferences (vegan, keto, high-protein, etc.).  
+✔ **Calorie & Nutrient Tracking** – Retrieves real-time nutritional data from the **Nutritionix API**.  
+✔ **Diet-Based Customization** – Adapts meal suggestions according to **user goals** (weight loss, muscle gain, etc.).  
+✔ **Interactive Web Interface** – Seamless user experience with a modern **React-based UI**.  
+✔ **Scalable & Modular Architecture** – Backend powered by **Flask**, making it **lightweight and extendable**.  
+✔ **Real-Time Response Optimization** – Utilizes NLP models to process user queries accurately.  
 
 ---
 
-## 📌 Project Structure  
+## **📌 Project Structure**  
 ```
 rasa-nutribot/
 │── frontend/         # Frontend (React)
 │── backend/          # Flask API Backend
-│── rasa/             # Rasa Chatbot
+│── rasa/             # Rasa Chatbot (Conversational AI)
 │── README.md         # Project Documentation
-│── requirements.txt  # Python Dependencies
 ```
 
 ---
 
-## 🔧 Installation  
+## **🔧 Installation & Setup**  
 
-### 1️⃣ Frontend Setup  
+### **1️⃣ Frontend (React) Setup**  
 1. Navigate to the `frontend` directory:  
    ```sh
    cd frontend
@@ -43,11 +44,11 @@ rasa-nutribot/
    ```sh
    npm run dev
    ```
-The frontend will be available at the URL provided by the development server.  
+The frontend will be accessible at the local server URL provided.
 
 ---
 
-### 2️⃣ Backend (Flask) Setup  
+### **2️⃣ Backend (Flask) Setup**  
 1. Navigate to the `backend` directory:  
    ```sh
    cd backend
@@ -56,19 +57,18 @@ The frontend will be available at the URL provided by the development server.
    ```sh
    pip install -r requirements.txt
    ```
-3. Run the backend server:  
+3. Run the Flask backend server:  
    ```sh
    python app.py
    ```
-
 ---
 
-### 3️⃣ Rasa Chatbot Setup  
+### **3️⃣ Rasa Chatbot Setup**  
 1. Navigate to the `rasa` directory:  
    ```sh
    cd rasa
    ```
-2. Train the Rasa model (if required):  
+2. Train the Rasa model (if not already trained):  
    ```sh
    rasa train
    ```
@@ -76,24 +76,25 @@ The frontend will be available at the URL provided by the development server.
    ```sh
    rasa run actions
    ```
-4. Run the Rasa chatbot:  
+4. Run the Rasa chatbot in interactive mode:  
    ```sh
    rasa shell
    ```
+---
+
+## **🛠 Technical Stack**  
+
+- **Frontend:** React.js, TailwindCSS  
+- **Backend:** Flask (Python-based API server)  
+- **Chatbot Engine:** Rasa (NLP, Intent Recognition, Entity Extraction)  
+- **Machine Learning:** SpaCy, nltk
+- **Database Integration:** Nutritionix API (Real-time food & calorie data)  
 
 ---
 
-## ⚠ Notes  
-✅ Ensure you have **Node.js**, **npm**, and **Python** installed on your system.  
-✅ For Rasa, set up the virtual environment using `rasa_env` if required.  
-✅ Refer to individual directories for additional configuration files.  
-
----
-
-## 📜 License  
+## **📜 License**  
 This project is licensed under the **MIT License**.  
 
 ---
 
-Happy coding! 🚀
-
+🚀 **Rasa NutriBot – Your AI Nutrition Assistant!** 🚀
