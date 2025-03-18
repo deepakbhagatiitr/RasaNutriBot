@@ -52,7 +52,7 @@ def extract_food_keywords(text):
     doc = nlp(text.lower())  # Process input with SpaCy NLP model
     
     # ✅ Define stop words to ignore
-    stop_words = {"suggest", "recommend", "give", "want", "need", "meal", "food", "diet", 
+    stop_words = {"suggest", "recommend", "give", "want", "need", "meal", "food", "foods", "diet", 
                   "some", "for", "me", "to", "a", "the", "that", "which"}
 
     # ✅ Extract meaningful food-related words (NOUNS & ADJECTIVES)
