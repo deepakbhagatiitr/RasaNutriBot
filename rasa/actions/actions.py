@@ -144,7 +144,7 @@ class ActionRecommendMeal(Action):
         meals = list(set([item["food_name"].title() for item in search_data.get("common", [])]))[:5]
 
         if not meals:
-            dispatcher.utter_message("I couldn't find a good meal option for you. Try a different request!")
+            dispatcher.utter_message("I’m not sure about that food item. Can you specify more details?")
             return []
 
         # ✅ Step 3: Fetch Nutrition Details
