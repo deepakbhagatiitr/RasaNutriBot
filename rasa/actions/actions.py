@@ -3,22 +3,24 @@ import requests
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
+import random  
 
-# ✅ Load SpaCy NLP model
+FOLLOW_UP_RESPONSES = [
+    "Do you have any dietary preferences? 🍽️ (e.g., vegan, keto) Let me know so I can tailor my recommendations!",
+    "What kind of meals do you prefer?"
+]
+
 nlp = spacy.load("en_core_web_sm")
 
-# ✅ Nutritionix API Endpoints
 NUTRITIONIX_SEARCH_API = "https://trackapi.nutritionix.com/v2/search/instant"
 NUTRITIONIX_NUTRIENTS_API = "https://trackapi.nutritionix.com/v2/natural/nutrients"
 
-# ✅ API Headers (Replace with actual keys)
 HEADERS = {
     "x-app-id": "4993cdc2",
     "x-app-key": "ab8f3d73f2fa6ee7f1554c1812caba45",
     "Content-Type": "application/json",
 }
 
-# ✅ List of valid diet preferences
 VALID_DIET_PREFERENCES = {
     "vegan", "vegetarian", "keto", "gluten-free", "paleo",
     "dairy-free", "low-carb", "high-protein", "weight-loss"
@@ -26,48 +28,29 @@ VALID_DIET_PREFERENCES = {
 
 VALID_NUTRIENTS = {"protein", "carbs", "fiber", "fats", "iron", "omega-3"}
 
-# ✅ Extract diet preference (ONLY if user explicitly mentions it)
 def extract_diet_preference(text):
     doc = nlp(text.lower())
     for token in doc:
         if token.text in VALID_DIET_PREFERENCES:
-            return token.text  # Return the detected diet preference
+            return token.text  
     return None
-
-# ✅ Extract relevant food keywords (Ensures nutrients like "protein" are not lost)
-# def extract_food_keywords(text):
-#     doc = nlp(text.lower())
-#     keywords = [
-#         token.text for token in doc if token.pos_ in ["NOUN", "ADJ"]
-#         and token.text not in ["suggest", "recommend", "give", "want", "need", "meal", "food", "diet"]
-#     ]
-#     for token in doc:
-#         if token.text in VALID_NUTRIENTS:
-#             keywords.append(token.text)  # Ensures "protein", "fiber" etc. are included
-
-#     return " ".join(keywords) if keywords else "balanced meal"  # Default fallback
 
 def extract_food_keywords(text):
     """Extract relevant food-related keywords using NLP with better filtering."""
-    doc = nlp(text.lower())  # Process input with SpaCy NLP model
+    doc = nlp(text.lower())  
     
-    # ✅ Define stop words to ignore
     stop_words = {"suggest", "recommend", "give", "want", "need", "meal", "food", "foods", "diet", 
                   "some", "for", "me", "to", "a", "the", "that", "which"}
-
-    # ✅ Extract meaningful food-related words (NOUNS & ADJECTIVES)
+    
     keywords = [token.text for token in doc if token.pos_ in ["NOUN", "ADJ"] and token.text not in stop_words]
 
-    # ✅ Handle **weight-related queries** properly
     text_lower = text.lower()
     if "weight loss" in text_lower or "weight-loss" in text_lower:
-     keywords = ["low calorie"]  # Overwrite with "low calorie"
+     keywords = ["low calorie"]  
     elif "weight gain" in text_lower or "weight-gain" in text_lower:
-     keywords = ["high calorie"]  # Overwrite with "high calorie"
-    return " ".join(set(keywords)) if keywords else "healthy meal"  # Default fallback
+     keywords = ["high calorie"]  
+    return " ".join(set(keywords)) if keywords else "healthy meal"  
 
-
-# ✅ Store User Diet Preference (ONLY updates slot when intent is 'diet_preference')
 class ActionStoreUserPreference(Action):
     def name(self):
         return "action_store_user_preference"
@@ -85,7 +68,7 @@ class ActionStoreUserPreference(Action):
 
             if diet_pref:
                 dispatcher.utter_message(f"Got it! You prefer {diet_pref}. I'll suggest meals accordingly.")
-                return [SlotSet("user_preference", diet_pref)]  # Store the valid preference
+                return [SlotSet("user_preference", diet_pref)]  
             else:
                 dispatcher.utter_message("I didn't recognize a specific diet preference. Please specify if you're vegan, keto, etc.")
         else:
@@ -93,7 +76,6 @@ class ActionStoreUserPreference(Action):
 
         return []
 
-# ✅ Recommend Meals Based on User's Diet & Extracted Keywords
 class ActionRecommendMeal(Action):
     def name(self):
         return "action_recommend_meal"
@@ -101,24 +83,24 @@ class ActionRecommendMeal(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain):
         user_query = tracker.latest_message.get("text", "").lower()
         detected_intent = tracker.latest_message.get("intent", {}).get("name", "")
-        user_preference = tracker.get_slot("user_preference")  # Retrieve stored diet preference
+        user_preference = tracker.get_slot("user_preference")  
 
         print(f"🔹 User Query: {user_query}")
         print(f"🔹 Detected Intent: {detected_intent}")
         print(f"🔹 Stored Diet Preference: {user_preference}")
 
-        # ✅ Extract relevant food-related keywords
+        
         refined_food_keywords = extract_food_keywords(user_query)
         print(f"🔹 Extracted Food Keywords: {refined_food_keywords}")
 
-        # ✅ Modify search query → Use BOTH stored diet preference & extracted food keywords
-        refined_query = refined_food_keywords  # Default to extracted food keywords
+        
+        refined_query = refined_food_keywords  
         if user_preference:
-            refined_query = f"{user_preference} {refined_food_keywords}"  # Prioritize stored preference
+            refined_query = f"{user_preference} {refined_food_keywords}"  
 
         print(f"🔹 Final API Query: {refined_query}")
 
-        # ✅ Step 1: Search for meals
+        
         try:
             search_response = requests.get(f"{NUTRITIONIX_SEARCH_API}?query={refined_query}", headers=HEADERS)
             search_response.raise_for_status()
@@ -127,19 +109,6 @@ class ActionRecommendMeal(Action):
             print(f"⚠️ API Search Error: {e}")
             dispatcher.utter_message("Sorry, I couldn't fetch meal suggestions at the moment.")
             return []
-# ✅ Step 2: Extract Unique Meal Names (No Duplicates)
-        # seen_meals = set()  # Track unique meals
-        # meal_suggestions = []
-
-        # for item in search_data.get("common", []):
-        #     meal_name = item["food_name"].title()
-            
-        #     if meal_name not in seen_meals:  # ✅ Avoid duplicate meals
-        #         seen_meals.add(meal_name)
-        #         meal_suggestions.append(meal_name)
-
-        # # ✅ Limit to 5 unique meals
-        # meals = meal_suggestions[:5]
 
         meals = list(set([item["food_name"].title() for item in search_data.get("common", [])]))[:5]
 
@@ -147,7 +116,6 @@ class ActionRecommendMeal(Action):
             dispatcher.utter_message("I’m not sure about that food item. Can you specify more details?")
             return []
 
-        # ✅ Step 3: Fetch Nutrition Details
         try:
             nutrition_response = requests.post(NUTRITIONIX_NUTRIENTS_API, headers=HEADERS, json={"query": ", ".join(meals)})
             nutrition_response.raise_for_status()
@@ -156,42 +124,41 @@ class ActionRecommendMeal(Action):
             print(f"⚠️ API Nutrition Error: {e}")
             dispatcher.utter_message("Sorry, I couldn't fetch nutrition details.")
             return []
-# ✅ Step 4: Format Meal Recommendations (Ensure Unique Meals)
-       # ✅ Step 4: Format Meal Recommendations (Ensure Unique & Relevant Meals)
 
         excluded_items = {
-        "protein", "carbs", "fiber", "fats", "iron", "omega-3", "sodium", "sugar",  # Generic nutrients
-        # "milk", "skim milk", "fat free milk", "whole milk", "yogurt", "juice", "beer", "alcohol", "soda",  # Beverages
+        "protein", "carbs", "fiber", "fats", "iron", "omega-3", "sodium", "sugar",  
+        
         }
 
-        seen_meals = set()  # Track unique meal names
+        seen_meals = set()  
         meal_suggestions = []
 
         for food in nutrition_data.get("foods", []):
             meal_name = food["food_name"].title()
             
-            # ✅ Skip if it's just a generic nutrient
+            
             if meal_name.lower() in excluded_items:
                 continue  
 
             meal_entry = f"{meal_name} - {food.get('nf_calories', 'Unknown')} calories"
             
-            if meal_name not in seen_meals:  # ✅ Avoid duplicates
+            if meal_name not in seen_meals:  
                 seen_meals.add(meal_name)
                 meal_suggestions.append(meal_entry)
 
-        meal_text = "\n".join(meal_suggestions)  # ✅ Unique, relevant meals only
+        meal_text = "\n".join(meal_suggestions)  
+        follow_up_responses = [
+                    "Do you have any dietary preferences? 🍽️ (e.g., vegan, keto) Let me know so I can tailor my recommendations!",
+                    "What kind of meals do you prefer?"
+                ]
+        follow_up_message = random.choice(follow_up_responses) if not user_preference else None
 
-        # ✅ Step 4: Format Meal Recommendations
-        # meal_suggestions = [
-        #     f"{food['food_name'].title()} - {food.get('nf_calories', 'Unknown')} calories, "
-        #     for food in nutrition_data.get("foods", [])
-        # ]
-        # meal_text = "\n".join(meal_suggestions)
+        full_response = f"Here are some meal options:\n{meal_text}"
+        if follow_up_message:
+            full_response += f"\n{follow_up_message}"  # ✅ Append follow-up message correctly
 
-        print(f"🔹 Final Meal Response: {meal_text}")
-
-        dispatcher.utter_message(f"Here are some meal options:\n{meal_text}")
+        print(f"🔹 Final Response Sent to Frontend:\n{full_response}")  # ✅ Debugging step
+        dispatcher.utter_message(text=full_response)  # ✅ Ensure text is explicitly passed
         return []
 
 class ActionHandleFeedback(Action):
@@ -206,6 +173,5 @@ class ActionHandleFeedback(Action):
         elif feedback == "negative":
             dispatcher.utter_message("I'm sorry you didn't enjoy it. Would you like another suggestion?")
         else:
-            dispatcher.utter_message("Thanks for your feedback!")
-
+            dispatcher.utter_message("Thanks for your feedback! It helps me to improve.")
         return []

@@ -10,7 +10,7 @@ intents:
   - give_feedback
 
 entities:
-  - feedback_type # ✅ Added entity to capture positive/negative feedback
+  - feedback_type
 
 slots:
   user_preference:
@@ -19,27 +19,46 @@ slots:
     mappings:
       - type: from_intent
         intent: diet_preference
-        value: "{text}" # ✅ Stores the user's diet preference
+        value: "{text}"
 
   feedback_type:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: feedback_type # ✅ Stores positive or negative feedback
+        entity: feedback_type
 
 responses:
   utter_greet:
-    - text: "Hello! How can I assist you with your diet today?"
+    - text: "Hey there! 😊 How can I assist you with your nutrition journey today?"
+    - text: "Hello! 🍎 Ready to make some healthy choices? Ask me anything!"
+    - text: "Hi there! What’s on your mind today? Need meal suggestions or diet advice?"
 
   utter_goodbye:
-    - text: "Goodbye! Stay healthy!"
+    - text: "Goodbye! Take care and stay healthy! 🏋️‍♂️"
+    - text: "See you later! Keep making nutritious choices! 🥗"
+    - text: "Bye-bye! Feel free to chat with me anytime for more health tips. 🚀"
 
   utter_default:
-    - text: "I'm here to help with nutrition and diet. Ask me about food and health!"
+    - text: "Hmm, I’m not sure about that. 🤔 Try asking about nutrition, diet tips, or healthy meals!"
+    - text: "Oops! I didn’t quite get that. Maybe rephrase your question or ask about meal recommendations. 🍽️"
+    - text: "I'm here to help with nutrition and diet. Try asking about balanced meals, meal plans, or calorie info!"
 
   utter_faq:
-    - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions."
+    - text: "A balanced diet includes proteins, carbs, fats, vitamins, and minerals in the right proportions. 🍏 Need a personalized meal plan?"
+    - text: "Great question! A good diet is about balance—whole foods, proteins, healthy fats, and staying hydrated! Want a meal suggestion?"
+    # - text: "Your body needs a mix of nutrients! 🌟 Would you like me to recommend a meal based on your preferences?"
+
+  utter_ask_preference:
+    - text: "Do you have any dietary preferences? 🍽️ (e.g., vegan, keto) Let me know so I can tailor my recommendations!"
+    - text: "What kind of meals do you prefer?"
+    # - text: "I can recommend meals based on your diet! 🌱 Are you looking for something specific like a high-protein or weight-loss meal?"
+    - text: "Let’s make sure I suggest the right meals for you! 🥑 Do you have any dietary restrictions or preferences?"
+
+  utter_give_feedback:
+    - text: "Thank you for your feedback! 🌟 I always appreciate hearing from you!"
+    - text: "I value your feedback! Would you like another meal suggestion?"
+    - text: "Your feedback helps me improve! Want me to suggest something different?"
 
 actions:
   - action_store_user_preference

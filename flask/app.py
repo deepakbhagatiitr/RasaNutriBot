@@ -15,10 +15,7 @@ from sklearn.preprocessing import LabelEncoder
 # Load environment variables
 load_dotenv()
 
-# Load NLP Models
-nlp = spacy.load("en_core_web_sm")
-nltk.download("punkt")
-classifier = pipeline("zero-shot-classification")
+
 
 # Load ML Models (Placeholder)
 tf_model = tf.keras.models.Sequential()
