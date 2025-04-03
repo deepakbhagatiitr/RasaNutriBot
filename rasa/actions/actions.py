@@ -32,17 +32,19 @@ VALID_DIET_PREFERENCES = {
 }
 
 # Valid nutrient keywords
-VALID_NUTRIENTS = {"protein", "carbs", "fiber", "fats", "iron", "omega-3"}
-
 
 def extract_diet_preference(text):
-    """Extract diet preference from user message."""
+    """Extract diet preference from user message using phrase matching."""
     doc = nlp(text.lower())
-    for token in doc:
-        if token.text in VALID_DIET_PREFERENCES:
-            return token.text  
+
+    # Check for exact phrase matches
+    for diet in VALID_DIET_PREFERENCES:
+        if diet in text.lower():
+            return diet  # ✅ Returns full diet preference correctly
+
     return None
 
+VALID_NUTRIENTS = {"protein", "carbs", "fiber", "fats", "iron", "omega-3"}
 
 def extract_food_keywords(text):
     """Extract relevant food-related keywords using NLP with better filtering."""
@@ -245,7 +247,7 @@ class ActionRecommendMeal(Action):
 
         excluded_items = {"protein", "carbs", "fiber", "fats", "iron", "omega-3", "sodium", "sugar"}
 
-        seen_meals = set()
+        seen_meals = set()  
         meal_suggestions = []
 
         for food in nutrition_data.get("foods", []):
@@ -255,20 +257,35 @@ class ActionRecommendMeal(Action):
 
             # Extract and format nutrition values
             calories = food.get('nf_calories', 'Unknown')
-            protein = food.get('nf_protein', 'Unknown')
+            protein = food.get('nf_protein', 0)  # Default to 0 if missing
             carbs = food.get('nf_total_carbohydrate', 'Unknown')
             fat = food.get('nf_total_fat', 'Unknown')
 
-            meal_entry = f"{meal_name} - {calories} kcal | Protein: {protein}g | Carbs: {carbs}g | Fat: {fat}g"
+            meal_entry = {
+                "name": meal_name,
+                "calories": calories,
+                "nf_protein": protein,  # Sorting Key
+                "carbs": carbs,
+                "fat": fat
+            }
             
-            if meal_name not in seen_meals:
+            if meal_name not in seen_meals:  
                 seen_meals.add(meal_name)
                 meal_suggestions.append(meal_entry)
 
-        meal_text = "\n".join(meal_suggestions)
+        # ✅ Sort meals by protein content (highest first)
+        nutrient_priority = "nf_protein"
+        meal_suggestions.sort(key=lambda x: float(x.get(nutrient_priority, 0)), reverse=True)
+
+# ✅ Convert meal objects to formatted text
+        meal_text = "\n".join(
+            f"{meal['name']} - {meal['calories']} kcal | Protein: {meal['nf_protein']}g | Carbs: {meal['carbs']}g | Fat: {meal['fat']}g"
+            for meal in meal_suggestions
+        )
+        
         follow_up_message = random.choice(FOLLOW_UP_RESPONSES) if not user_preference else None
 
-        full_response = f"Here are some meal options for your {user_preference or 'selected'} diet:\n{meal_text}"
+        full_response = f"Here are some meal options :\n{meal_text}"
         if follow_up_message:
             full_response += f"\n{follow_up_message}"  # ✅ Append follow-up message correctly
 

@@ -1,0 +1,33 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - Hi
+    - What's up?
+- intent: goodbye
+  examples: |
+    - I'm signing off
+    - Catch you later
+- intent: give_feedback
+  examples: |
+    - Not my favorite meal [negative](feedback_type)
+    - I prefer something else [negative](feedback_type)
+    - Can you suggest something else? [negative](feedback_type)
+    - The meal was bad [negative](feedback_type)
+- intent: diet_preference
+  examples: |
+    - I follow a dairy-free diet
+    - I follow a vegan diet
+    - I eat only whole foods
+- intent: faq
+  examples: |
+    - How can I reduce sugar intake in my diet?
+    - What is the difference between carbs and fats?
+    - How much protein do I need daily?
+    - What are some iron-rich foods?
+- intent: meal_suggestion
+  examples: |
+    - Suggest a meal
+    - What should I eat after a workout?
+    - What is a good low-carb meal?
+    - I need a quick and healthy meal

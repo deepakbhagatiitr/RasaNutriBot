@@ -1,0 +1,88 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - Good evening
+    - Hi there!
+    - Hello
+    - How's it going?
+    - Yo!
+    - Hey there
+    - Hey!
+    - Good morning
+- intent: goodbye
+  examples: |
+    - Talk to you later
+    - See you later
+    - Bye
+    - Bye for now
+    - See you soon
+    - Take care
+    - Have a nice day
+    - Goodbye
+- intent: give_feedback
+  examples: |
+    - I didn't like it [negative](feedback_type)
+    - I didn’t enjoy that [negative](feedback_type)
+    - The taste wasn’t great [negative](feedback_type)
+    - I loved the meal [positive](feedback_type)
+    - It wasn't good [negative](feedback_type)
+    - I want a different meal [negative](feedback_type)
+    - That meal was perfect [positive](feedback_type)
+    - I enjoyed it a lot [positive](feedback_type)
+    - I liked it [positive](feedback_type)
+    - It was good [positive](feedback_type)
+    - That was delicious [positive](feedback_type)
+    - It was okay, but I’d like to try another one [positive](feedback_type)
+- intent: diet_preference
+  examples: |
+    - I need a meal with low cholesterol
+    - I don't eat meat
+    - I am on a low-carb diet
+    - Can you suggest meals with healthy fats?
+    - I am on a keto diet
+    - I only eat gluten-free food
+    - I prefer vegetarian meals
+    - I follow intermittent fasting
+    - I eat only organic food, suggest something
+    - I need vegetarian meal suggestions
+    - I am vegan
+    - I need a meal suitable for diabetes
+    - I am on a weight-loss diet
+    - My diet is paleo
+- intent: faq
+  examples: |
+    - What is the best time to eat fruits?
+    - What vitamins are essential for good health?
+    - How many meals should I eat in a day?
+    - How many calories should I eat daily?
+    - What is a balanced diet?
+    - Which foods help with muscle gain?
+    - What is the best diet for weight loss?
+    - Should I take protein supplements?
+    - Is eating late at night bad for health?
+    - How much water should I drink per day?
+    - Can you suggest some foods rich in omega-3?
+    - Is coffee good for health?
+    - What is the best source of plant-based protein?
+    - What are the benefits of eating fiber?
+- intent: meal_suggestion
+  examples: |
+    - I need something easy to cook for dinner
+    - I need a keto-friendly meal
+    - Recommend something dairy-free
+    - Recommend a healthy meal
+    - Tell me a meal that is good for digestion
+    - Suggest a meal that fits my diet plan
+    - What should I eat before going to the gym?
+    - What’s a good meal for breakfast?
+    - What are some good meal options?
+    - Can you suggest something for lunch?
+    - What is the best meal for a vegan diet?
+    - Recommend a meal rich in fiber
+    - I need a meal that is high in iron
+    - Suggest a protein-rich diet
+    - Can you suggest a meal for weight loss?
+    - Give me a high-protein meal
+    - What should I eat for dinner?
+    - Suggest a balanced meal for me
