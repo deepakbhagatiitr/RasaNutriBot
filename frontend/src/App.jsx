@@ -13,7 +13,6 @@ const ChatDashboard = () => {
   const [showOptions, setShowOptions] = useState(true); // ✅ Show Quick Action Buttons Initially
   const [inputEnabled, setInputEnabled] = useState(false); // ❌ Hide Input Initially
   const bottomRef = useRef(null);
-
   const handleSend = async (text) => {
     const userMessage = text || message.trim();
     if (!userMessage) return;
@@ -21,24 +20,38 @@ const ChatDashboard = () => {
     setMessages((prev) => [...prev, { text: userMessage, user: true }]);
     setMessage("");
     setLoading(true);
-    setShowOptions(false); // ✅ Hide Options After First Message
-    setInputEnabled(true); // ✅ Show Input Box
+    setShowOptions(false);
+    setInputEnabled(true);
 
     try {
       const response = await axios.post("http://localhost:5000/webhook", {
         queryResult: { intent: { displayName: userMessage }, queryText: userMessage },
       });
-      console.log("🔹 Full Response from Backend:", response.data.fulfillmentText); // ✅ Debugging
 
-      const botResponse = response.data.fulfillmentText || "Failed to get a response from the backend.";
-      setMessages((prev) => [...prev, { text: botResponse, user: false }]);
+      console.log("🔹 Full Response from Backend:", response.data);
+
+      // ✅ Capture all messages (Rasa sends multiple responses)
+      const botMessages = response.data.messages || [response.data.fulfillmentText];
+
+      if (!botMessages.length) {
+        botMessages.push("Sorry, I didn't get a valid response.");
+      }
+
+      botMessages.forEach((msg) => {
+        if (msg) {
+          setMessages((prev) => [...prev, { text: msg, user: false }]);
+        }
+      });
+
     } catch (error) {
-      console.error("Error:", error);
+      console.error("❌ Error:", error);
       setMessages((prev) => [...prev, { text: `Error: ${error.message}`, user: false }]);
     } finally {
       setLoading(false);
     }
   };
+
+
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && inputEnabled) {
@@ -94,7 +107,6 @@ const ChatDashboard = () => {
                   </div>
                 ))}
 
-
                 {/* ✅ Typing Indicator */}
                 {loading && (
                   <div className="mb-4 flex justify-start">
@@ -140,5 +152,3 @@ const ChatDashboard = () => {
 };
 
 export default ChatDashboard;
-
-
