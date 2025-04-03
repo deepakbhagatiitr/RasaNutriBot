@@ -44,3 +44,5 @@ policies:
     epochs: 100 # Adjust epochs for better learning
     batch_size: [32, 64] # Optimize training performance
 
+assistant:
+  workers: 4 # Increased workers to handle concurrent users

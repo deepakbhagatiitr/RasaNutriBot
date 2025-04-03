@@ -3,7 +3,7 @@ import { FiSend } from "react-icons/fi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ScrollToBottom from "react-scroll-to-bottom";
 import axios from "axios";
-import logo from "./assets/nutribot_logo.webp"; // ✅ NutriBot Logo
+import logo from "./assets/nutribot_logo.webp"; // NutriBot Logo
 import "./index.css";
 
 const ChatDashboard = () => {
@@ -15,6 +15,7 @@ const ChatDashboard = () => {
   const bottomRef = useRef(null);
 
   const handleSend = async (text) => {
+    // function to send message to the backend and receive response
     const userMessage = text || message.trim();
     if (!userMessage) return;
 
@@ -52,6 +53,7 @@ const ChatDashboard = () => {
   };
 
   const handleKeyDown = (e) => {
+    // function to handle "Enter" key press
     if (e.key === "Enter" && inputEnabled) {
       e.preventDefault();
       handleSend();
@@ -62,7 +64,7 @@ const ChatDashboard = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // ✅ Function to format bot responses as bullet points
+  // Function to format bot responses as bullet points
   const formatBotResponse = (text) => {
     if (text.includes("\n")) {
       return text.split("\n").map((line, index) => (
@@ -72,7 +74,7 @@ const ChatDashboard = () => {
     return text;
   };
 
-  // ✅ Quick Reply Diet Options
+  // Quick Reply Diet Options
   const handleQuickReply = (dietType) => {
     handleSend(`I follow a ${dietType} diet`);
   };
@@ -82,13 +84,13 @@ const ChatDashboard = () => {
   return (
     <div className="flex justify-center w-full h-screen py-5 bg-gray-50">
       <div className="flex flex-col w-11/12 h-full overflow-hidden bg-white rounded-lg shadow-lg md:w-8/12 lg:w-6/12">
-        {/* ✅ Header with Logo */}
+        {/* Header with Logo */}
         <header className="flex items-center justify-between p-4 bg-blue-600 text-white">
           <div className="text-xl font-semibold">NutriBot</div>
           <img src={logo} alt="NutriBot Logo" className="w-10 h-10 rounded-full" />
         </header>
 
-        {/* ✅ Quick Reply Buttons for Diet Selection */}
+        {/* Quick Reply Buttons for Diet Selection */}
         {showOptions && (
           <div className="flex justify-center gap-2 mt-3">
             {quickReplies.map((diet) => (
@@ -103,7 +105,7 @@ const ChatDashboard = () => {
           </div>
         )}
 
-        {/* ✅ Chat Messages */}
+        {/* Chat Messages */}
         <div className="flex-1 p-4 overflow-y-auto">
           <ScrollToBottom className="flex-1">
             {messages.length === 0 && <div className="text-gray-400 text-center mt-10">Ask me anything about nutrition! 🍏</div>}
@@ -115,7 +117,7 @@ const ChatDashboard = () => {
               </div>
             ))}
 
-            {/* ✅ Typing Indicator */}
+            {/* Typing Indicator */}
             {loading && (
               <div className="mb-4 flex justify-start">
                 <span className="inline-block px-4 py-2 text-gray-600 bg-gray-200 rounded-lg shadow">
@@ -129,14 +131,14 @@ const ChatDashboard = () => {
           </ScrollToBottom>
         </div>
 
-        {/* ✅ Input Box (Appears After Option Selection) */}
+        {/* Input Box (Appears After Option Selection) */}
         {inputEnabled && (
           <form className="flex p-4 space-x-2 bg-gray-100" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={handleKeyDown} // ✅ Handle "Enter" Key
+              onKeyDown={handleKeyDown} // Handle "Enter" Key
               placeholder="Type a message e.g., Track Meal, Recommend Recipes..."
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg outline-none bg-white"
               aria-label="Message Input"
