@@ -42,7 +42,6 @@ fakeredis==2.27.0
 fastjsonschema==2.21.1
 fbmessenger==4.3.1
 filelock==3.17.0
-firebase-admin==6.7.0
 Flask==3.1.0
 flask-cors==5.0.1
 flatbuffers==25.2.10
