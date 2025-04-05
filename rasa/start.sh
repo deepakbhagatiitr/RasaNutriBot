@@ -6,6 +6,5 @@ echo "Starting Rasa on Render-assigned port: $PORT"
 rasa run \
   --enable-api \
   --cors "*" \
-  --debug \
-  --port $PORT \
-  --host 0.0.0.0
+#   --host 0.0.0.0 \
+  --port $PORT
