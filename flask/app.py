@@ -9,7 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 # Rasa Chatbot API URL
-RASA_URL = "http://localhost:5005/webhooks/rest/webhook"
+RASA_URL = "https://rasa-server-842373618484.us-central1.run.app/webhooks/rest/webhook"
 
 # Flask App Initialization
 app = Flask(__name__)

@@ -26,7 +26,7 @@ const ChatDashboard = () => {
     setInputEnabled(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/webhook", {
+      const response = await axios.post("https://rasa-chatbot-flask-842373618484.us-central1.run.app/webhook", {
         queryResult: { intent: { displayName: userMessage }, queryText: userMessage },
       });
 
