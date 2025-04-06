@@ -1,19 +1,12 @@
 import os
 import json
 import requests
-import spacy
-import nltk
-import torch
-import tensorflow as tf
 import numpy as np
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import pipeline
-from dotenv import load_dotenv
 from sklearn.preprocessing import LabelEncoder
 
-# Load environment variables
-load_dotenv()
 
 # Rasa Chatbot API URL
 RASA_URL = "http://localhost:5005/webhooks/rest/webhook"

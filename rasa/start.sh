@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PORT=${PORT:-10000}
-echo "Starting Rasa on Render-assigned port: $PORT"
+# Set a default port if none provided by Render
+PORT=${PORT:-5005}
 
-rasa run \
-  --enable-api \
-  --cors "*" \
-#   --host 0.0.0.0 \
-  --port $PORT
+echo "Starting Rasa on Render-assigned port: $PORT"
+rasa run --enable-api --cors "*" --host 127.0.0.1 --port $PORT
+
+
+

@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  rasa-server:
+    image: rasa/rasa:3.6.21
+    container_name: rasa-server
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./endpoints.yml:/app/endpoints.yml
+    command: run --enable-api --cors "*" --model /app/models --endpoints endpoints.yml
+    # depends_on:
+    #   - rasa-actions
+    environment:
+      - SQLALCHEMY_WARN_20=1
+      - SQLALCHEMY_SILENCE_UBER_WARNING=1
+
+  rasa-actions:
+    build:
+      context: .
+      dockerfile: Dockerfile.actions
+    container_name: rasa-actions
+    ports:
+      - "5055:5055"
+    #   - rasa-actions
+    volumes:
+      - ./actions:/app/actions
+      - ./entrypoint.sh:/app/entrypoint.sh
+    depends_on:
+      - rasa-server
+    environment:
+      - PYTHONPATH=/app
+
+networks:
+  default:
+    driver: bridge
