@@ -1,13 +1,26 @@
+# Use the specific Rasa image as the base
 FROM rasa/rasa:3.6.21
-
 USER root
-
+# Set the working directory in the container
 WORKDIR /app
 
-# Install additional dependencies (if needed)
+# Install additional Python packages needed
 RUN pip install --no-cache-dir numpy==1.23.5 spacy requests
 
-# Switch back to default user
+# Copy configuration and data directories from the host to the container
+# Note: These COPY commands assume you are building the container where these directories are present.
+# These will need to be present in the context directory of the Docker build.
+COPY ./config /app/config
+COPY ./data /app/data
+COPY ./models /app/models
+COPY ./endpoints.yml /app/endpoints.yml
+
+# Set environment variables
+ENV SQLALCHEMY_WARN_20=1 \
+    SQLALCHEMY_SILENCE_UBER_WARNING=1
+
+# Switch to non-root user for security
 USER 1001
 
-CMD ["run", "--enable-api", "--cors", "*", "--port", "5005"]
+# Command to run when starting the container
+CMD ["run", "--enable-api", "--cors", "*", "--model", "/app/models", "--endpoints", "endpoints.yml"]

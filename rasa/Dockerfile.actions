@@ -1,3 +1,4 @@
+# Use the Rasa SDK image as the base
 FROM rasa/rasa-sdk:3.6.2
 
 # Switch to root to install system dependencies and ensure permissions
@@ -32,8 +33,11 @@ RUN /app/venv/bin/pip install --no-cache-dir rasa==3.6.21 numpy==1.23.5 spacy re
 # Download spaCy model in the virtual environment
 RUN /app/venv/bin/python3 -m spacy download en_core_web_sm
 
+# Set environment variables as specified in Docker Compose
+ENV PYTHONPATH=/app
+
 # Switch back to non-root user (if required by the base image)
 USER 1001
 
-# Set ENTRYPOINT to use the virtual environment
+# Set ENTRYPOINT to use the virtual environment and execute the action server
 ENTRYPOINT ["/app/venv/bin/python", "-m", "rasa", "run", "actions"]
