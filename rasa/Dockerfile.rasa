@@ -23,4 +23,4 @@ ENV SQLALCHEMY_WARN_20=1 \
 USER 1001
 
 # Command to run when starting the container
-CMD ["run", "--enable-api", "--cors", "*", "--model", "/app/models", "--endpoints", "endpoints.yml"]
+ENTRYPOINT ["rasa", "run", "--enable-api", "--cors", "*", "--model", "/app/models", "--endpoints", "/app/endpoints.yml"]
