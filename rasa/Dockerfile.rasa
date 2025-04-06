@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir numpy==1.23.5 spacy requests
 # Copy configuration and data directories from the host to the container
 # Note: These COPY commands assume you are building the container where these directories are present.
 # These will need to be present in the context directory of the Docker build.
-COPY ./config /app/config
+# COPY ./config /app/config
 COPY ./data /app/data
 COPY ./models /app/models
 COPY ./endpoints.yml /app/endpoints.yml
