@@ -29,7 +29,7 @@ NutriBot is an **AI-driven conversational chatbot** designed to provide **person
 | NLP Libraries | spaCy, Rasa NLU pipeline  |
 | Data Source   | [Nutritionix API](https://developer.nutritionix.com/) |
 | Deployment    | Docker + Docker Compose   |
-| Hosting       | Compatible with Render, Heroku, etc. |
+| Hosting       | Compatible with Render, Heroku, etc. I host on gcp|
 
 ---
 
@@ -38,9 +38,9 @@ NutriBot is an **AI-driven conversational chatbot** designed to provide **person
 ```
 nutribot/
 ├── rasa/               # Rasa NLU, Core, Actions, Config
-├── backend/            # Flask Middleware Server
+     ── docker-compose.yml  # Multi-service deployment
+├── flask/            # Flask Middleware Server
 ├── frontend/           # React + Tailwind UI
-├── docker-compose.yml  # Multi-service deployment
 └── README.md           # Project documentation
 ```
 
@@ -58,13 +58,11 @@ nutribot/
 ### 🐳 1. Docker-Based Deployment (Recommended)
 
 ```bash
-# From project root directory
+# From rasa root directory
 docker-compose up --build
 ```
-
-- **Frontend:** http://localhost:3000  
-- **Backend (Flask):** http://localhost:5001  
 - **Rasa Server:** http://localhost:5005  
+- **Rasa actions:** http://localhost:5055  
 
 ---
 
@@ -99,19 +97,7 @@ rasa run --enable-api
 | User Message                          | Bot Response                              |
 |---------------------------------------|-------------------------------------------|
 | "Suggest a low-carb lunch"            | Meal options: Grilled chicken, salad...   |
-| "How many calories are in a banana?"  | "A banana has ~105 calories..."           |
 | "I want a vegan dinner high in protein" | Suggestions: Tofu quinoa, chickpea salad... |
-
----
-
-## 🧪 Evaluation
-
-| Metric                   | Result           |
-|--------------------------|------------------|
-| Intent Accuracy          | > 90% F1-Score   |
-| Entity Extraction        | High precision   |
-| Response Latency         | < 2 seconds      |
-| Error Handling           | Handled with fallback policy |
 
 ---
 
@@ -152,4 +138,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-🚀 **Rasa NutriBot – Your AI Nutrition Assistant!** 🚀
+🚀 **Visit the Deployment section of the repo to access the live Rasa NutriBot – Your AI Nutrition Assistant!** 🚀
