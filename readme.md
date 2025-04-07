@@ -138,4 +138,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-🚀**Visit the Deployment section of the repo to access the live Rasa NutriBot – Your AI Nutrition Assistant!**🚀
+🚀 **Visit the Deployment section of the repo to access the live Rasa NutriBot-Your AI Nutrition Assistant!** 🚀
