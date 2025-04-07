@@ -1,8 +1,3 @@
-Sure Sneha! Here’s a **professional and polished `README.md` file** for your **NutriBot project**, combining the details from your architecture, features, deployment steps, and more. This version is formatted for GitHub or any collaborative platform, and it follows best practices for clarity, structure, and completeness.
-
----
-
-```markdown
 # 🥗 NutriBot — AI-Powered Personalized Nutrition Chatbot
 
 NutriBot is an **AI-driven conversational chatbot** designed to provide **personalized nutrition and meal recommendations** based on user preferences like diet type (e.g., keto, vegan), nutrient focus (e.g., high-protein), and meal type (breakfast, lunch, dinner). It integrates **Natural Language Processing (NLP)** using **Rasa**, a **Flask backend**, and a modern **React + Tailwind CSS frontend** to deliver real-time, interactive dietary guidance.
@@ -154,28 +149,7 @@ rasa run --enable-api
 ## 📄 License
 
 This project is licensed under the **MIT License**.  
-Feel free to fork, contribute, or build on top of it! 💚
 
 ---
 
-## 👩‍💻 Authors
-
-**Sneha & Team**  
-AI/NLP Enthusiasts | Future HealthTech Innovators  
-Reach out: [LinkedIn](https://linkedin.com) | [Email](mailto:your@email.com)
-
----
-
-> _"Let food be thy medicine, and NutriBot your guide."_ 🍎🤖
-
-```
-
----
-
-Let me know if you'd like me to also create:
-
-- A **`CONTRIBUTING.md`** for open source collaboration
-- A **PowerPoint presentation** based on this project
-- A **PDF version of this README**
-
-Just drop a word and I’ll make it happen!
+🚀 **Rasa NutriBot – Your AI Nutrition Assistant!** 🚀

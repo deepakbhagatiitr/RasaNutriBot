@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 
 # Rasa Chatbot API URL
 RASA_URL = "https://rasa-server-842373618484.us-central1.run.app/webhooks/rest/webhook"
-
+# https://rasa-server-842373618484.us-central1.run.app
 # Flask App Initialization
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS for cross-origin requests
